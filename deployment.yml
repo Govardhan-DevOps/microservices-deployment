@@ -1,17 +1,28 @@
-apiVersion: v1
-kind: Pod for weather API deployment to kubernetes clusters
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: final_weather
+  creationTimestamp: null
+  labels:
+    app: microservices
+  name: microservices
 spec:
-  replicas: 1
+  replicas: 2
+  selector:
+    matchLabels:
+      app: microservices
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: final_weather
+        app: microservices
     spec:
       containers:
-      - name: final_weather
-        image: 641825664234.dkr.ecr.ap-south-1.amazonaws.com/final_weather:latest
+      - image: pokharia83/microservices:v1
+        name: microservices
+        command: [ "sleep" ]
+        args: [ "infinity" ]
         ports:
-        - containerPort: 8081
-        imagePullPolicy: Always
+          - containerPort: 8081
+        resources: {}
+status: {}
